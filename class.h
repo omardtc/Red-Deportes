@@ -59,7 +59,7 @@ public:
     int numeroDeUsuarios;
     int numeroDePublicaiones;
 
-    void agregarUsuario();
+    void agregarUsuario(Usuario* x);
     void mostrarUsuarios();
     void mostrarPublicaciones();
     Usuario* getUsuario(int id);
@@ -78,8 +78,8 @@ public:
     }
 };
 
-void RedSocial::agregarUsuario(){
-    this->usuarios.push_back(&);
+void RedSocial::agregarUsuario(Usuario* x){
+    this->usuarios.push_back(x);
 }
 
 void RedSocial::mostrarUsuarios(){
@@ -95,11 +95,27 @@ void RedSocial::mostrarPublicaciones(){
 }
 
 Usuario* RedSocial::getUsuario(int id){
-
+    for (int i = 0; i < usuarios.size(); i++)
+    {
+        if (id == this->usuarios[i]->getId())
+        {
+            return this->usuarios[i];
+        }
+    }
+    return nullptr;
+    cout << "No existe ese usuario" << endl;
 }
 
 void Publicacion::mostrarPublicacion(){
-    
+    cout << "Fecha: " << this->fecha << endl;
+    cout << "Contenido: " << this->contenido << endl;
+    cout << "Usuario: " << this->usuario->nombre << endl;
+
+}
+
+int Usuario::getId()
+{
+    return this->id;
 }
 
 #endif
