@@ -4,7 +4,8 @@ using namespace std;
 #define log(x) cout << x << endl;
 
 void LimpiarPantalla();
-void MenuDeUsuario();
+void MenuDeUsuario(int i);
+int id;
 
 int main()
 {
@@ -29,7 +30,9 @@ int main()
             break;
             case 3:
             //Introduce ID de usuario 
-            MenuDeUsuario();
+            log("Ingrese su ID de usuario");
+            cin >> id;
+            MenuDeUsuario(id);
             break;
             case 4:
             return 0; //Cierra programa
@@ -52,11 +55,11 @@ void LimpiarPantalla()
     //Borra pantalla
 }
 
-void MenuDeUsuario()
+void MenuDeUsuario(int i)
 {
     LimpiarPantalla();
-    int x;
-    log("¿Que quieres hacer?");
+    int x, f;
+    log("Que quieres hacer?");
     log("1. Ver lista de amigos");
     log("2. Ver publicaciones");
     log("3. Crear publicacion");
@@ -77,7 +80,9 @@ switch (x)
             break;
             case 4:
             //Introduce ID de amigo 
-            MenuDeUsuario();
+            log("Ingrese el ID de su amigo");
+            cin >> f;
+            MenuDeUsuario(f);
             break;
             case 5:
             main();
