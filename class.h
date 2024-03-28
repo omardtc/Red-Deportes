@@ -26,6 +26,7 @@ public:
     string nombre;
     int edad;
     string nacionalidad;
+    string deporte;
     vector<Usuario*> amigos;
     vector<Publicacion*> publicaciones;
 
@@ -48,6 +49,12 @@ public:
         this->nombre = nombre;
         this->edad = edad;
         this->nacionalidad = nacionalidad;
+    }
+    Usuario(string nombre, int edad, string nacionalidad, string deporte){
+        this->nombre = nombre;
+        this->edad = edad;
+        this->nacionalidad = nacionalidad;
+        this->deporte = deporte;   
     }
 };
 class RedSocial{
@@ -78,6 +85,13 @@ public:
     }
 };
 
+void Publicacion::mostrarPublicacion(){
+    cout << "Fecha: " << this->fecha << endl;
+    cout << "Contenido: " << this->contenido << endl;
+    cout << "Usuario: " << this->usuario->nombre << endl;
+
+}
+
 void RedSocial::agregarUsuario(Usuario* x){
     this->usuarios.push_back(x);
 }
@@ -90,7 +104,7 @@ void RedSocial::mostrarUsuarios(){
 
 void RedSocial::mostrarPublicaciones(){
     for(int i = 0; i < this->publicaciones.size(); i++){
-        cout << this->publicaciones[i]->mostrarPublicacion() << endl;
+        this->publicaciones[i]->mostrarPublicacion();
     }
 }
 
@@ -106,16 +120,61 @@ Usuario* RedSocial::getUsuario(int id){
     cout << "No existe ese usuario" << endl;
 }
 
-void Publicacion::mostrarPublicacion(){
-    cout << "Fecha: " << this->fecha << endl;
-    cout << "Contenido: " << this->contenido << endl;
-    cout << "Usuario: " << this->usuario->nombre << endl;
-
-}
 
 int Usuario::getId()
 {
     return this->id;
 }
 
+void Usuario::mostrar()
+{
+    cout << "ID: " << this->getId() << endl;
+    cout << "Nombre: " << this->nombre << endl;
+    cout << "Edad: " << this->edad << endl;
+    cout << "Nacionalidad: " << this->nacionalidad << endl;
+    cout << "Deporte practicado: " << this->deporte << endl;
+}
+
+void Usuario::mostrarAmigos()
+{
+    for (int i = 0; i < amigos.size(); i++){
+        this->amigos[i]->mostrar();
+    }
+}
+
+void Usuario::mostrarPublicaciones()
+{
+    for (int i = 0; i < publicaciones.size(); i++){
+        this->publicaciones[i]->mostrarPublicacion();
+    }
+}
+
+void Usuario::agregarAmigo(Usuario *nuevoAmigo)
+{
+    this->amigos.push_back(nuevoAmigo);
+    //Falta agregar que el usuario tambien se agregue a la lista de amigos del nuevo amigo
+}
+
+void Usuario::crearPublicacion()
+{
+    string f, c;
+    cout << "Escriba el contenido de su publicacion" << endl;    
+    cin >> c;
+    cout << "Escriba la fecha de su publicacion" << endl;    
+    cin >> f;
+    Publicacion p(Usuario* usuario, string f, string c);
+}
+
+Usuario* Usuario::getAmigo(int id)
+{
+    for (int i = 0; i < amigos.size(); i++)
+    {
+        if (id == this->amigos[i]->getId())
+        {
+            return this->amigos[i];
+        }
+    }
+    return nullptr;
+    cout << "No existe ese amigo" << endl;
+}
 #endif

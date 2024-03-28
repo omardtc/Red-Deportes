@@ -6,6 +6,8 @@ using namespace std;
 void LimpiarPantalla();
 void MenuDeUsuario(int i);
 int id;
+RedSocial r;
+Usuario u;
 
 int main()
 {
@@ -17,24 +19,27 @@ int main()
     log("1. Ver lista de usuarios");
     log("2. Ver lista de publicaciones");
     log("3. Entrar a perfil de usuario");
-    log("4. Salir");
+    log("4. Agregar nuevo usuario")
+    log("5. Salir");
     cin >> x;
 
     switch (x)
         {
             case 1: 
-            //Mostrar listado de todos los usuarios existentes
+            r.mostrarUsuarios();
             break;
             case 2:
-            //Mostrar listado de todas las publicaciones existentes
+            r.mostrarPublicaciones();
             break;
             case 3:
             //Introduce ID de usuario 
             log("Ingrese su ID de usuario");
             cin >> id;
-            MenuDeUsuario(id);
             break;
             case 4:
+            //Agrega nuevo usuario
+            break;
+            case 5:
             return 0; //Cierra programa
             break;
             default:
