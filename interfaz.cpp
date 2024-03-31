@@ -4,17 +4,18 @@ using namespace std;
 #define log(x) cout << x << endl;
 
 void LimpiarPantalla();
-void MenuDeUsuario(int i);
+void MenuDeUsuario(Usuario* u);
 int id;
-RedSocial r;
-Usuario u;
+RedSocial r("Deportics");
+Usuario u("");
 
 int main()
 {
     LimpiarPantalla();
     while(true)
     {
-    int x;
+    int x, age;
+    string name, nation, sport;
     log("Bienvenido a Deportics, tu red social deportiva. Elige una de las siguientes opciones");
     log("1. Ver lista de usuarios");
     log("2. Ver lista de publicaciones");
@@ -25,25 +26,48 @@ int main()
 
     switch (x)
         {
-            case 1: 
+            case 1:
+            LimpiarPantalla();
             r.mostrarUsuarios();
             break;
             case 2:
+            LimpiarPantalla();
             r.mostrarPublicaciones();
             break;
             case 3:
-            //Introduce ID de usuario 
+            LimpiarPantalla();
             log("Ingrese su ID de usuario");
             cin >> id;
+            r.getUsuario(id);
             break;
             case 4:
-            //Agrega nuevo usuario
+            LimpiarPantalla();
+            cout << "Ingresa nombre del nuevo usuario" << endl;
+            cin >> name;
+            LimpiarPantalla();
+            cout << "Ingresa edad del nuevo usuario" << endl;
+            cin >> age;
+            LimpiarPantalla();
+            cout << "Ingresa nacionalidad del nuevo usuario" << endl;
+            cin >> nation;
+            LimpiarPantalla();
+            cout << "Ingresa deporte preferido del nuevo usuario" << endl;
+            cin >> sport;
+            LimpiarPantalla();
+            u.nombre = name;
+            u.nacionalidad = nation;
+            u.edad = age;
+            u.deporte = sport;
+            cout << "Su ID es " << u.getId() << endl;
+            r.agregarUsuario(&u);
             break;
             case 5:
             return 0; //Cierra programa
             break;
             default:
             log("Ingresa un numero valido"); //Numeros invalidos
+            LimpiarPantalla();
+            main();
             break;
         }
     }
@@ -60,36 +84,48 @@ void LimpiarPantalla()
     //Borra pantalla
 }
 
-void MenuDeUsuario(int i)
+void MenuDeUsuario(Usuario* u)
 {
+    Usuario user = *u;
     LimpiarPantalla();
-    int x, f;
+    int x, f, y;
     log("Que quieres hacer?");
     log("1. Ver lista de amigos");
     log("2. Ver publicaciones");
     log("3. Crear publicacion");
     log("4. Entrar a perfil de amigo");
-    log("5. Regresar al menu principal");
+    log("5. Agregar nuevo amigo");
+    log("6. Regresar al menu principal");
     cin >> x;
 
 switch (x)
         {
-            case 1: 
-            //Mostrar listado de todos los amigos del usuario
+            case 1:
+            LimpiarPantalla();
+            user.mostrarAmigos();
             break;
             case 2:
-            //Mostrar listado de todas las publicaciones del usuario
+            LimpiarPantalla();
+            user.mostrarPublicaciones();
             break;
             case 3:
-            //Crear nuevo post
+            LimpiarPantalla();
+            user.crearPublicacion();
             break;
             case 4:
-            //Introduce ID de amigo 
+            LimpiarPantalla();
+            user.mostrarAmigos();
             log("Ingrese el ID de su amigo");
             cin >> f;
-            MenuDeUsuario(f);
+            user.getAmigo(f);
             break;
             case 5:
+            //Agregar amigo
+            r.mostrarUsuarios();
+            cout << "Introduce el ID del perfil al que quieras agregar de amigo" << endl;
+            cin >> y;
+            break;
+            case 6:
             main();
             break;
             default:

@@ -3,22 +3,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Publicacion{
-private:
-    int id;
-public:
-    string fecha;
-    string contenido;
-    Usuario* usuario;
+class Publicacion;
 
-    void mostrarPublicacion();
-
-    Publicacion(Usuario* usuario, string fecha, string contenido){
-        this->usuario = usuario;
-        this->fecha = fecha;
-        this->contenido = contenido;
-    }
-};
 class Usuario{
 private:
     int id;
@@ -57,14 +43,32 @@ public:
         this->deporte = deporte;   
     }
 };
+
+class Publicacion{
+private:
+    int id;
+public:
+    string fecha;
+    string contenido;
+    Usuario* usuario;
+
+    void mostrarPublicacion();
+
+    Publicacion(Usuario* usuario, string fecha, string contenido){
+        this->usuario = usuario;
+        this->fecha = fecha;
+        this->contenido = contenido;
+    }
+};
+
 class RedSocial{
 private:
     vector<Usuario*> usuarios;
     vector<Publicacion*> publicaciones;
 public:
     string nombre;
-    int numeroDeUsuarios;
-    int numeroDePublicaiones;
+    int numeroDeUsuarios = usuarios.size();
+    int numeroDePublicaiones = publicaciones.size();
 
     void agregarUsuario(Usuario* x);
     void mostrarUsuarios();
@@ -98,7 +102,7 @@ void RedSocial::agregarUsuario(Usuario* x){
 
 void RedSocial::mostrarUsuarios(){
     for(int i = 0; i < this->usuarios.size(); i++){
-        cout << this->usuarios[i]->nombre << endl;
+        this->usuarios[i]->mostrar();
     }
 }
 
@@ -113,7 +117,8 @@ Usuario* RedSocial::getUsuario(int id){
     {
         if (id == this->usuarios[i]->getId())
         {
-            return this->usuarios[i];
+            this->usuarios[i]->mostrar();
+            MenuDeUsuario(this->usuarios[i]);
         }
     }
     return nullptr;
@@ -123,6 +128,8 @@ Usuario* RedSocial::getUsuario(int id){
 
 int Usuario::getId()
 {
+    int x = rand()%10;
+    this->id = x;
     return this->id;
 }
 
@@ -163,6 +170,7 @@ void Usuario::crearPublicacion()
     cout << "Escriba la fecha de su publicacion" << endl;    
     cin >> f;
     Publicacion p(Usuario* usuario, string f, string c);
+    
 }
 
 Usuario* Usuario::getAmigo(int id)
@@ -171,7 +179,8 @@ Usuario* Usuario::getAmigo(int id)
     {
         if (id == this->amigos[i]->getId())
         {
-            return this->amigos[i];
+            this->amigos[i]->mostrar();
+            MenuDeUsuario(this->amigos[i]);
         }
     }
     return nullptr;
