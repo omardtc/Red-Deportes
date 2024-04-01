@@ -8,6 +8,7 @@ void MenuDeUsuario(Usuario* u);
 int id;
 RedSocial r("Deportics");
 Usuario u("");
+Usuario a("");
 
 int main()
 {
