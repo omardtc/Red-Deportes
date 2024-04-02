@@ -159,7 +159,8 @@ void Usuario::mostrarPublicaciones()
 void Usuario::agregarAmigo(Usuario *nuevoAmigo)
 {
     this->amigos.push_back(nuevoAmigo);
-    //Falta agregar que el usuario tambien se agregue a la lista de amigos del nuevo amigo
+    Usuario u(this->nombre, this->edad, this->nacionalidad, this->deporte);
+    nuevoAmigo->amigos.push_back(&u);
 }
 
 void Usuario::crearPublicacion()
@@ -169,8 +170,9 @@ void Usuario::crearPublicacion()
     cin >> c;
     cout << "Escriba la fecha de su publicacion" << endl;
     cin >> f;
-    Publicacion p(Usuario* usuario, string f, string c);
-
+    Usuario u(this->nombre, this->edad, this->nacionalidad, this->deporte);
+    Publicacion p(&u, f, c);
+    this->publicaciones.push_back(&p);
 }
 
 Usuario* Usuario::getAmigo(int id)
