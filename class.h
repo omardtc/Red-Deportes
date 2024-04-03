@@ -3,7 +3,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Usuario;
+class RedSocial;
 class Publicacion;
+
 void LimpiarPantalla();
 
 class Usuario{
@@ -22,7 +25,7 @@ public:
     void mostrarAmigos();
     void mostrarPublicaciones();
     void agregarAmigo(Usuario *nuevoAmigo);
-    void crearPublicacion();
+    Publicacion* crearPublicacion();
     Usuario* getAmigo(int id);
 
     Usuario(string nombre){
@@ -42,6 +45,7 @@ public:
         this->edad = edad;
         this->nacionalidad = nacionalidad;
         this->deporte = deporte;
+        this->id = rand()%10;
     }
 };
 
@@ -49,16 +53,23 @@ class Publicacion{
 private:
     int id;
 public:
-    string fecha;
+    int dia, mes, anio;
     string contenido;
     Usuario* usuario;
 
     void mostrarPublicacion();
 
-    Publicacion(Usuario* usuario, string fecha, string contenido){
-        this->usuario = usuario;
-        this->fecha = fecha;
+    Publicacion(string contenido)
+    {
         this->contenido = contenido;
+    }
+    
+    Publicacion(Usuario* usuario, string contenido, int dia, int mes, int anio){
+        this->usuario = usuario;
+        this->contenido = contenido;
+        this->dia = dia;
+        this->mes = mes;
+        this->anio = anio;
     }
 };
 
@@ -76,6 +87,7 @@ public:
     void mostrarPublicaciones();
     Usuario* getUsuario(int id);
     void CrearUsuario();
+    void agregarPublicacion(Publicacion* x);
 
     RedSocial(string nombre){
         this->nombre = nombre;
@@ -92,10 +104,15 @@ public:
 };
 
 void Publicacion::mostrarPublicacion(){
-    cout << "Fecha: " << this->fecha << endl;
+    cout << "Fecha: " << this->dia << "/" << this->mes << "/" << this-anio << endl;
     cout << "Contenido: " << this->contenido << endl;
     cout << "Usuario: " << this->usuario->nombre << endl;
 
+}
+
+void RedSocial::agregarPublicacion(Publicacion* x)
+{
+    this->publicaciones.push_back(x);
 }
 
 void RedSocial::agregarUsuario(Usuario* x){
@@ -103,19 +120,27 @@ void RedSocial::agregarUsuario(Usuario* x){
 }
 
 void RedSocial::mostrarUsuarios(){
+    string op;
     for(int i = 0; i < this->usuarios.size(); i++){
         this->usuarios[i]->mostrar();
     }
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 void RedSocial::mostrarPublicaciones(){
+    string op;
     for(int i = 0; i < this->publicaciones.size(); i++){
         this->publicaciones[i]->mostrarPublicacion();
     }
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 Usuario* RedSocial::getUsuario(int id){
-    for (int i = 0; i < usuarios.size(); i++)
+    for (int i = 0; i < this->usuarios.size(); i++)
     {
         if (id == this->usuarios[i]->getId())
         {
@@ -130,7 +155,7 @@ void RedSocial::CrearUsuario()
 {
     int age;
     string name, nation, sport;
-    Usuario u("");
+    Usuario* u = new Usuario("");
     LimpiarPantalla();
     cout << "Ingresa nombre del nuevo usuario" << endl;
     cin >> name;
@@ -144,18 +169,16 @@ void RedSocial::CrearUsuario()
     cout << "Ingresa deporte preferido del nuevo usuario" << endl;
     cin >> sport;
     LimpiarPantalla();
-    u.nombre = name;
-    u.nacionalidad = nation;
-    u.edad = age;
-    u.deporte = sport;
-    cout << "Su ID es " << u.getId() << endl;
-    this->agregarUsuario(&u);
+    u->nombre = name;
+    u->nacionalidad = nation;
+    u->edad = age;
+    u->deporte = sport;
+    cout << "Su ID es " << u->getId() << endl;
+    this->agregarUsuario(u);
 }
 
 int Usuario::getId()
 {
-    int x = rand()%10;
-    this->id = x;
     return this->id;
 }
 
@@ -166,13 +189,18 @@ void Usuario::mostrar()
     cout << "Edad: " << this->edad << endl;
     cout << "Nacionalidad: " << this->nacionalidad << endl;
     cout << "Deporte practicado: " << this->deporte << endl;
+    cout << endl;
 }
 
 void Usuario::mostrarAmigos()
 {
+    string op;
     for (int i = 0; i < amigos.size(); i++){
         this->amigos[i]->mostrar();
     }
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 void Usuario::mostrarPublicaciones()
@@ -189,16 +217,26 @@ void Usuario::agregarAmigo(Usuario *nuevoAmigo)
     nuevoAmigo->amigos.push_back(&u);
 }
 
-void Usuario::crearPublicacion()
+Publicacion* Usuario::crearPublicacion()
 {
-    string f, c;
-    cout << "Escriba el contenido de su publicacion" << endl;
-    cin >> c;
-    cout << "Escriba la fecha de su publicacion" << endl;
-    cin >> f;
+    string cont;
+    int day, month, year;
     Usuario u(this->nombre, this->edad, this->nacionalidad, this->deporte);
-    Publicacion p(&u, f, c);
-    this->publicaciones.push_back(&p);
+    Publicacion* p = new Publicacion("");
+    cout << "Escriba la actividad que hace en su publicacion" << endl;
+    cin >> cont;
+    cout << "Escriba la fecha de su publicacion en formato DD/MM/YYYY" << endl;
+    cout << "NOTA: No use diagonales, presione ENTER despues de llenar cada dato" << endl;
+    cin >> day;
+    cin >> month;
+    cin >> year;
+    p->usuario = &u;
+    p->contenido = cont;
+    p->dia = day;
+    p->mes = month;
+    p->anio = year;
+    this->publicaciones.push_back(p);
+    return this->publicaciones.back();
 }
 
 Usuario* Usuario::getAmigo(int id)

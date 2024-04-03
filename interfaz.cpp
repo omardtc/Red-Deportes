@@ -36,7 +36,7 @@ int main()
             LimpiarPantalla();
             log("Ingrese su ID de usuario");
             cin >> id;
-            r.getUsuario(id);
+            MenuDeUsuario(r.getUsuario(id));
             break;
             case 4:
             r.CrearUsuario();
@@ -60,6 +60,12 @@ int main()
 
 void MenuDeUsuario(Usuario* u)
 {
+    if(u == nullptr)
+    {
+        cout << "Usuario no encontrado" << endl;
+        return;
+    }
+    
     Usuario user = *u;
     LimpiarPantalla();
     int x, f, y;
@@ -84,7 +90,7 @@ switch (x)
             break;
             case 3:
             LimpiarPantalla();
-            user.crearPublicacion();
+            r.agregarPublicacion(user.crearPublicacion());
             break;
             case 4:
             LimpiarPantalla();
