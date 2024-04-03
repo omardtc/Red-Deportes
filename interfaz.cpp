@@ -3,9 +3,7 @@
 using namespace std;
 #define log(x) cout << x << endl;
 
-void LimpiarPantalla();
 void MenuDeUsuario(Usuario* u);
-void CrearUsuario();
 int id;
 RedSocial r("Deportics");
 
@@ -15,7 +13,8 @@ int main()
     while(true)
     {
     int x;
-    log("Bienvenido a Deportics, tu red social deportiva. Elige una de las siguientes opciones");
+    cout << "Bienvenido a " << r.nombre << ", tu red social deportiva" << endl;
+    log("Elige una de las siguientes opciones:");
     log("1. Ver lista de usuarios");
     log("2. Ver lista de publicaciones");
     log("3. Entrar a perfil de usuario");
@@ -40,7 +39,7 @@ int main()
             r.getUsuario(id);
             break;
             case 4:
-            CrearUsuario();
+            r.CrearUsuario();
             break;
             case 5:
             return 0; //Cierra programa
@@ -56,40 +55,8 @@ int main()
 
 
 
-void LimpiarPantalla()
-{
-    if (system("CLS") == -1)
-    {
-        cout << "Error al borrar pantalla" << endl;
-    }
-    //Borra pantalla
-}
 
-void CrearUsuario()
-{
-    int age;
-    string name, nation, sport;
-    Usuario u("");
-    LimpiarPantalla();
-    cout << "Ingresa nombre del nuevo usuario" << endl;
-    cin >> name;
-    LimpiarPantalla();
-    cout << "Ingresa edad del nuevo usuario" << endl;
-    cin >> age;
-    LimpiarPantalla();
-    cout << "Ingresa nacionalidad del nuevo usuario" << endl;
-    cin >> nation;
-    LimpiarPantalla();
-    cout << "Ingresa deporte preferido del nuevo usuario" << endl;
-    cin >> sport;
-    LimpiarPantalla();
-    u.nombre = name;
-    u.nacionalidad = nation;
-    u.edad = age;
-    u.deporte = sport;
-    cout << "Su ID es " << u.getId() << endl;
-    r.agregarUsuario(&u);
-}
+
 
 void MenuDeUsuario(Usuario* u)
 {

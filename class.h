@@ -4,6 +4,7 @@
 using namespace std;
 
 class Publicacion;
+void LimpiarPantalla();
 
 class Usuario{
 private:
@@ -74,6 +75,7 @@ public:
     void mostrarUsuarios();
     void mostrarPublicaciones();
     Usuario* getUsuario(int id);
+    void CrearUsuario();
 
     RedSocial(string nombre){
         this->nombre = nombre;
@@ -124,7 +126,31 @@ Usuario* RedSocial::getUsuario(int id){
     cout << "No existe ese usuario" << endl;
 }
 
-
+void RedSocial::CrearUsuario()
+{
+    int age;
+    string name, nation, sport;
+    Usuario u("");
+    LimpiarPantalla();
+    cout << "Ingresa nombre del nuevo usuario" << endl;
+    cin >> name;
+    LimpiarPantalla();
+    cout << "Ingresa edad del nuevo usuario" << endl;
+    cin >> age;
+    LimpiarPantalla();
+    cout << "Ingresa nacionalidad del nuevo usuario" << endl;
+    cin >> nation;
+    LimpiarPantalla();
+    cout << "Ingresa deporte preferido del nuevo usuario" << endl;
+    cin >> sport;
+    LimpiarPantalla();
+    u.nombre = name;
+    u.nacionalidad = nation;
+    u.edad = age;
+    u.deporte = sport;
+    cout << "Su ID es " << u.getId() << endl;
+    this->agregarUsuario(&u);
+}
 
 int Usuario::getId()
 {
@@ -188,6 +214,14 @@ Usuario* Usuario::getAmigo(int id)
     cout << "No existe ese amigo" << endl;
 }
 
+void LimpiarPantalla()
+{
+    if (system("CLS") == -1)
+    {
+        cout << "Error al borrar pantalla" << endl;
+    }
+    //Borra pantalla
+}
 
 
 
