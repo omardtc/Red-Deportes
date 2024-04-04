@@ -30,15 +30,19 @@ public:
 
     Usuario(string nombre){
         this->nombre = nombre;
+        this->id = rand()%10;
     }
     Usuario(string nombre, int edad){
         this->nombre = nombre;
         this->edad = edad;
+        this->id = rand()%10;
     }
     Usuario(string nombre, int edad, string nacionalidad){
         this->nombre = nombre;
         this->edad = edad;
-        this->nacionalidad = nacionalidad;
+        this->nacionalidad = nacionalidad;        
+        this->id = rand()%10;
+
     }
     Usuario(string nombre, int edad, string nacionalidad, string deporte){
         this->nombre = nombre;
@@ -62,6 +66,7 @@ public:
     Publicacion(string contenido)
     {
         this->contenido = contenido;
+        this->id = rand()%10;
     }
     
     Publicacion(Usuario* usuario, string contenido, int dia, int mes, int anio){
@@ -70,6 +75,7 @@ public:
         this->dia = dia;
         this->mes = mes;
         this->anio = anio;
+        this->id = rand()%10;
     }
 };
 

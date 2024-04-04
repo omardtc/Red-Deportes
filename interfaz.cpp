@@ -66,7 +66,7 @@ void MenuDeUsuario(Usuario* u)
         return;
     }
     
-    Usuario user = *u;
+
     LimpiarPantalla();
     int x, f, y;
     log("Que quieres hacer?");
@@ -82,22 +82,22 @@ switch (x)
         {
             case 1:
             LimpiarPantalla();
-            user.mostrarAmigos();
+            u->mostrarAmigos();
             break;
             case 2:
             LimpiarPantalla();
-            user.mostrarPublicaciones();
+            u->mostrarPublicaciones();
             break;
             case 3:
             LimpiarPantalla();
-            r.agregarPublicacion(user.crearPublicacion());
+            r.agregarPublicacion(u->crearPublicacion());
             break;
             case 4:
             LimpiarPantalla();
-            user.mostrarAmigos();
+            u->mostrarAmigos();
             log("Ingrese el ID de su amigo");
             cin >> f;
-            user.getAmigo(f);
+            u->getAmigo(f);
             break;
             case 5:
             //Agregar amigo
