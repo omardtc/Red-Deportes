@@ -104,7 +104,7 @@ public:
 };
 
 void Publicacion::mostrarPublicacion(){
-    cout << "Fecha: " << this->dia << "/" << this->mes << "/" << this-anio << endl;
+    cout << "Fecha: " << this->dia << "/" << this->mes << "/" << this->anio << endl;
     cout << "Contenido: " << this->contenido << endl;
     cout << "Usuario: " << this->usuario->nombre << endl;
 
