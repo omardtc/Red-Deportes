@@ -69,7 +69,8 @@ public:
         this->id = rand()%1000;
     }
     
-    Publicacion(Usuario* usuario, string contenido, int dia, int mes, int anio){
+    Publicacion(Usuario* usuario, string contenido, int dia, int mes, int anio)
+    {
         this->usuario = usuario;
         this->contenido = contenido;
         this->dia = dia;
@@ -170,16 +171,19 @@ void RedSocial::CrearUsuario()
     Usuario* u = new Usuario("");
     LimpiarPantalla();
     cout << "Ingresa nombre del nuevo usuario" << endl;
-    cin >> name;
+    cin.ignore();
+    getline(cin, name);
     LimpiarPantalla();
     cout << "Ingresa edad del nuevo usuario" << endl;
     cin >> age;
     LimpiarPantalla();
     cout << "Ingresa nacionalidad del nuevo usuario" << endl;
-    cin >> nation;
+    cin.ignore();
+    getline(cin, nation);
     LimpiarPantalla();
     cout << "Ingresa deporte preferido del nuevo usuario" << endl;
-    cin >> sport;
+    cin.ignore();
+    getline(cin, sport);
     LimpiarPantalla();
     u->nombre = name;
     u->nacionalidad = nation;
@@ -241,8 +245,9 @@ Publicacion* Usuario::crearPublicacion()
     string cont;
     int day, month, year;
     Publicacion* p = new Publicacion("");
-    cout << "Escriba la actividad que hace en su publicacion" << endl;
-    cin >> cont;
+    cout << "Describa la actividad que hace en su publicacion" << endl;
+    cin.ignore();
+    getline(cin, cont);
     cout << "Escriba la fecha de su publicacion en formato DD/MM/YYYY" << endl;
     cout << "NOTA: No use diagonales, presione ENTER despues de llenar cada dato" << endl;
     cin >> day;
