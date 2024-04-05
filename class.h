@@ -30,18 +30,18 @@ public:
 
     Usuario(string nombre){
         this->nombre = nombre;
-        this->id = rand()%10;
+        this->id = rand()%1000;
     }
     Usuario(string nombre, int edad){
         this->nombre = nombre;
         this->edad = edad;
-        this->id = rand()%10;
+        this->id = rand()%1000;
     }
     Usuario(string nombre, int edad, string nacionalidad){
         this->nombre = nombre;
         this->edad = edad;
         this->nacionalidad = nacionalidad;        
-        this->id = rand()%10;
+        this->id = rand()%1000;
 
     }
     Usuario(string nombre, int edad, string nacionalidad, string deporte){
@@ -49,7 +49,7 @@ public:
         this->edad = edad;
         this->nacionalidad = nacionalidad;
         this->deporte = deporte;
-        this->id = rand()%10;
+        this->id = rand()%1000;
     }
 };
 
@@ -66,7 +66,7 @@ public:
     Publicacion(string contenido)
     {
         this->contenido = contenido;
-        this->id = rand()%10;
+        this->id = rand()%1000;
     }
     
     Publicacion(Usuario* usuario, string contenido, int dia, int mes, int anio){
@@ -75,7 +75,7 @@ public:
         this->dia = dia;
         this->mes = mes;
         this->anio = anio;
-        this->id = rand()%10;
+        this->id = rand()%1000;
     }
 };
 
@@ -113,6 +113,7 @@ void Publicacion::mostrarPublicacion(){
     cout << "Fecha: " << this->dia << "/" << this->mes << "/" << this->anio << endl;
     cout << "Contenido: " << this->contenido << endl;
     cout << "Usuario: " << this->usuario->nombre << endl;
+    cout << endl;
 
 }
 
@@ -126,6 +127,7 @@ void RedSocial::agregarUsuario(Usuario* x){
 }
 
 void RedSocial::mostrarUsuarios(){
+    LimpiarPantalla();
     string op;
     for(int i = 0; i < this->usuarios.size(); i++){
         this->usuarios[i]->mostrar();
@@ -146,6 +148,7 @@ void RedSocial::mostrarPublicaciones(){
 }
 
 Usuario* RedSocial::getUsuario(int id){
+    string op;
     for (int i = 0; i < this->usuarios.size(); i++)
     {
         if (id == this->usuarios[i]->getId())
@@ -155,12 +158,15 @@ Usuario* RedSocial::getUsuario(int id){
     }
     return nullptr;
     cout << "No existe ese usuario" << endl;
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 void RedSocial::CrearUsuario()
 {
     int age;
-    string name, nation, sport;
+    string name, nation, sport, op;
     Usuario* u = new Usuario("");
     LimpiarPantalla();
     cout << "Ingresa nombre del nuevo usuario" << endl;
@@ -181,6 +187,9 @@ void RedSocial::CrearUsuario()
     u->deporte = sport;
     cout << "Su ID es " << u->getId() << endl;
     this->agregarUsuario(u);
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 int Usuario::getId()
@@ -211,23 +220,26 @@ void Usuario::mostrarAmigos()
 
 void Usuario::mostrarPublicaciones()
 {
+    string op;
     for (int i = 0; i < publicaciones.size(); i++){
         this->publicaciones[i]->mostrarPublicacion();
     }
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 void Usuario::agregarAmigo(Usuario *nuevoAmigo)
 {
     this->amigos.push_back(nuevoAmigo);
-    Usuario u(this->nombre, this->edad, this->nacionalidad, this->deporte);
-    nuevoAmigo->amigos.push_back(&u);
+    nuevoAmigo->amigos.push_back(this);
 }
 
 Publicacion* Usuario::crearPublicacion()
 {
+    LimpiarPantalla();
     string cont;
     int day, month, year;
-    Usuario u(this->nombre, this->edad, this->nacionalidad, this->deporte);
     Publicacion* p = new Publicacion("");
     cout << "Escriba la actividad que hace en su publicacion" << endl;
     cin >> cont;
@@ -236,7 +248,7 @@ Publicacion* Usuario::crearPublicacion()
     cin >> day;
     cin >> month;
     cin >> year;
-    p->usuario = &u;
+    p->usuario = this;
     p->contenido = cont;
     p->dia = day;
     p->mes = month;
@@ -247,6 +259,7 @@ Publicacion* Usuario::crearPublicacion()
 
 Usuario* Usuario::getAmigo(int id)
 {
+    string op;
     for (int i = 0; i < amigos.size(); i++)
     {
         if (id == this->amigos[i]->getId())
@@ -256,6 +269,9 @@ Usuario* Usuario::getAmigo(int id)
     }
     return nullptr;
     cout << "No existe ese amigo" << endl;
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
 }
 
 void LimpiarPantalla()

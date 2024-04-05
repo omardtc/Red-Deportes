@@ -62,7 +62,12 @@ void MenuDeUsuario(Usuario* u)
 {
     if(u == nullptr)
     {
+        string op;
         cout << "Usuario no encontrado" << endl;
+        cout << endl;
+        cout << "Escriba OK para volver al menu" << endl;
+        cin >> op;
+        LimpiarPantalla();
         return;
     }
     
@@ -83,14 +88,17 @@ switch (x)
             case 1:
             LimpiarPantalla();
             u->mostrarAmigos();
+            MenuDeUsuario(u);
             break;
             case 2:
             LimpiarPantalla();
             u->mostrarPublicaciones();
+            MenuDeUsuario(u);
             break;
             case 3:
             LimpiarPantalla();
             r.agregarPublicacion(u->crearPublicacion());
+            MenuDeUsuario(u);
             break;
             case 4:
             LimpiarPantalla();
@@ -98,18 +106,23 @@ switch (x)
             log("Ingrese el ID de su amigo");
             cin >> f;
             u->getAmigo(f);
+            MenuDeUsuario(u);
             break;
             case 5:
-            //Agregar amigo
+            LimpiarPantalla();
             r.mostrarUsuarios();
             cout << "Introduce el ID del perfil al que quieras agregar de amigo" << endl;
             cin >> y;
+            u->agregarAmigo(r.getUsuario(y));
+            MenuDeUsuario(u);
             break;
             case 6:
             main();
             break;
             default:
             log("Ingresa un numero valido"); //Numeros invalidos
+            LimpiarPantalla();
+            MenuDeUsuario(u);
             break;
         }
 }
