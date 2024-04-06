@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <stdio.h>  
+#include <windows.h> 
 #include "class.h"
 using namespace std;
 #define log(x) cout << x << endl;
@@ -6,19 +8,24 @@ using namespace std;
 void MenuDeUsuario(Usuario* u);
 int id;
 RedSocial r("Deportics");
+void PantallaDeCarga();
+void gotoxy(int x, int y);
+
 
 int main()
 {
+    PantallaDeCarga();
     LimpiarPantalla();
     while(true)
     {
+    system("color F1");
+    gotoxy(1,8);
     int x;
-    cout << "Bienvenido a " << r.nombre << ", tu red social deportiva" << endl;
     log("Elige una de las siguientes opciones:");
     log("1. Ver lista de usuarios");
     log("2. Ver lista de publicaciones");
     log("3. Entrar a perfil de usuario");
-    log("4. Agregar nuevo usuario")
+    log("4. Agregar nuevo usuario");
     log("5. Salir");
     cin >> x;
 
@@ -71,9 +78,10 @@ void MenuDeUsuario(Usuario* u)
         return;
     }
     
-
     LimpiarPantalla();
+    system("color F5");
     int x, f, y;
+    gotoxy(1,8);
     log("Que quieres hacer?");
     log("1. Ver lista de amigos");
     log("2. Ver publicaciones");
@@ -126,3 +134,26 @@ switch (x)
             break;
         }
 }
+
+void PantallaDeCarga()
+{
+    system("color F1");
+    LimpiarPantalla();
+    gotoxy(20, 8);
+    cout << r.nombre << ", tu red social deportiva" << endl;
+    gotoxy(20, 10);
+    cout << "Cargando..." << endl;
+    _sleep(5000);
+}
+
+void gotoxy(int x, int y)
+{
+    HANDLE hcon;  
+    hcon = GetStdHandle(STD_OUTPUT_HANDLE);  
+    COORD dwPos;  
+    dwPos.X = x;  
+    dwPos.Y= y;  
+    SetConsoleCursorPosition(hcon,dwPos);
+}
+
+

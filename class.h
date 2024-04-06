@@ -129,6 +129,7 @@ void RedSocial::agregarUsuario(Usuario* x){
 
 void RedSocial::mostrarUsuarios(){
     LimpiarPantalla();
+    system("color 72");
     string op;
     for(int i = 0; i < this->usuarios.size(); i++){
         this->usuarios[i]->mostrar();
@@ -139,6 +140,8 @@ void RedSocial::mostrarUsuarios(){
 }
 
 void RedSocial::mostrarPublicaciones(){
+    LimpiarPantalla();
+    system("color 73");
     string op;
     for(int i = 0; i < this->publicaciones.size(); i++){
         this->publicaciones[i]->mostrarPublicacion();
@@ -166,6 +169,7 @@ Usuario* RedSocial::getUsuario(int id){
 
 void RedSocial::CrearUsuario()
 {
+    system("color D0");
     int age;
     string name, nation, sport, op;
     Usuario* u = new Usuario("");
@@ -213,6 +217,7 @@ void Usuario::mostrar()
 
 void Usuario::mostrarAmigos()
 {
+    system("color 74");
     string op;
     for (int i = 0; i < amigos.size(); i++){
         this->amigos[i]->mostrar();
@@ -224,6 +229,7 @@ void Usuario::mostrarAmigos()
 
 void Usuario::mostrarPublicaciones()
 {
+    system("color 73");
     string op;
     for (int i = 0; i < publicaciones.size(); i++){
         this->publicaciones[i]->mostrarPublicacion();
@@ -235,12 +241,17 @@ void Usuario::mostrarPublicaciones()
 
 void Usuario::agregarAmigo(Usuario *nuevoAmigo)
 {
+    LimpiarPantalla();
     this->amigos.push_back(nuevoAmigo);
     nuevoAmigo->amigos.push_back(this);
+    cout << "Amigo agregado correctamente" << endl;
+    cout << "Cargando..." << endl;
+    _sleep(2000);
 }
 
 Publicacion* Usuario::crearPublicacion()
 {
+    system("color D2");
     LimpiarPantalla();
     string cont;
     int day, month, year;
@@ -259,6 +270,9 @@ Publicacion* Usuario::crearPublicacion()
     p->mes = month;
     p->anio = year;
     this->publicaciones.push_back(p);
+    cout << "Su publicacion ha sido agregada correctamente" << endl;
+    cout << "Cargando..." << endl;
+    _sleep(2000);
     return this->publicaciones.back();
 }
 
