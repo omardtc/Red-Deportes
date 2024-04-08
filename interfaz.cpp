@@ -113,8 +113,7 @@ switch (x)
             u->mostrarAmigos();
             log("Ingrese el ID de su amigo");
             cin >> f;
-            u->getAmigo(f);
-            MenuDeUsuario(u);
+            MenuDeUsuario(u->getAmigo(f));
             break;
             case 5:
             LimpiarPantalla();

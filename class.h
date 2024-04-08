@@ -6,6 +6,7 @@ using namespace std;
 class Usuario;
 class RedSocial;
 class Publicacion;
+class PublicacionUbi;
 
 void LimpiarPantalla();
 
@@ -52,6 +53,7 @@ public:
         this->id = rand()%1000;
     }
 };
+
 
 class Publicacion{
 private:
@@ -107,6 +109,13 @@ public:
         this->nombre = nombre;
         this->usuarios = usuarios;
         this->publicaciones = publicaciones;
+    }
+};
+
+class PublicacionUbi: public Publicacion{
+    string ubi;
+    PublicacionUbi(Usuario* usuario, string contenido, int dia, int mes, int anio): Publicacion(usuario, contenido, dia, mes, anio){
+        this->ubi = "";
     }
 };
 
