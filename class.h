@@ -20,6 +20,7 @@ public:
     string deporte;
     vector<Usuario*> amigos;
     vector<Publicacion*> publicaciones;
+    vector<PublicacionUbi*> ubicaciones;
 
     int getId();
     void mostrar();
@@ -28,6 +29,8 @@ public:
     void agregarAmigo(Usuario *nuevoAmigo);
     Publicacion* crearPublicacion();
     Usuario* getAmigo(int id);
+    void mostrarUbicaciones();
+    PublicacionUbi* crearUbicacion();
 
     Usuario(string nombre){
         this->nombre = nombre;
@@ -86,6 +89,7 @@ class RedSocial{
 private:
     vector<Usuario*> usuarios;
     vector<Publicacion*> publicaciones;
+    vector<PublicacionUbi*> ubicaciones;
 public:
     string nombre;
     int numeroDeUsuarios = usuarios.size();
@@ -97,6 +101,9 @@ public:
     Usuario* getUsuario(int id);
     void CrearUsuario();
     void agregarPublicacion(Publicacion* x);
+    void agregarUbicacion(PublicacionUbi* x);
+    void mostrarUbicaciones();
+
 
     RedSocial(string nombre){
         this->nombre = nombre;
@@ -113,10 +120,15 @@ public:
 };
 
 class PublicacionUbi: public Publicacion{
+    public:
     string ubi;
+    PublicacionUbi(string contenido): Publicacion(contenido){
+        this->ubi = "";
+    }
     PublicacionUbi(Usuario* usuario, string contenido, int dia, int mes, int anio): Publicacion(usuario, contenido, dia, mes, anio){
         this->ubi = "";
     }
+    void mostrarUbicacion();
 };
 
 void Publicacion::mostrarPublicacion(){
@@ -127,9 +139,23 @@ void Publicacion::mostrarPublicacion(){
 
 }
 
+void PublicacionUbi::mostrarUbicacion()
+{
+    cout << "Fecha: " << this->dia << "/" << this->mes << "/" << this->anio << endl;
+    cout << "Contenido: " << this->contenido << endl;
+    cout << "Ubicacion: " << this->ubi << endl;
+    cout << "Usuario: " << this->usuario->nombre << endl;
+    cout << endl;
+}
+
 void RedSocial::agregarPublicacion(Publicacion* x)
 {
     this->publicaciones.push_back(x);
+}
+
+void RedSocial::agregarUbicacion(PublicacionUbi* x)
+{
+    this->ubicaciones.push_back(x);
 }
 
 void RedSocial::agregarUsuario(Usuario* x){
@@ -154,6 +180,19 @@ void RedSocial::mostrarPublicaciones(){
     string op;
     for(int i = 0; i < this->publicaciones.size(); i++){
         this->publicaciones[i]->mostrarPublicacion();
+    }
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
+}
+
+void RedSocial::mostrarUbicaciones()
+{
+    LimpiarPantalla();
+    system("color 73");
+    string op;
+    for(int i = 0; i < this->ubicaciones.size(); i++){
+        this->ubicaciones[i]->mostrarUbicacion();
     }
     cout << "Escriba OK para volver al menu" << endl;
     cin >> op;
@@ -240,8 +279,20 @@ void Usuario::mostrarPublicaciones()
 {
     system("color 73");
     string op;
-    for (int i = 0; i < publicaciones.size(); i++){
+    for (int i = 0; i < this->publicaciones.size(); i++){
         this->publicaciones[i]->mostrarPublicacion();
+    }
+    cout << "Escriba OK para volver al menu" << endl;
+    cin >> op;
+    LimpiarPantalla();
+}
+
+void Usuario::mostrarUbicaciones()
+{
+    system("color 73");
+    string op;
+    for (int i = 0; i < this->ubicaciones.size(); i++){
+        this->ubicaciones[i]->mostrarUbicacion();
     }
     cout << "Escriba OK para volver al menu" << endl;
     cin >> op;
@@ -283,6 +334,37 @@ Publicacion* Usuario::crearPublicacion()
     cout << "Cargando..." << endl;
     _sleep(2000);
     return this->publicaciones.back();
+}
+
+PublicacionUbi* Usuario::crearUbicacion()
+{
+    system("color D2");
+    LimpiarPantalla();
+    string cont, location;
+    int day, month, year;
+    PublicacionUbi* p = new PublicacionUbi("");
+    cout << "Describa la actividad que hace en su publicacion" << endl;
+    cin.ignore();
+    getline(cin, cont);
+    cout << "Escriba la fecha de su publicacion en formato DD/MM/YYYY" << endl;
+    cout << "NOTA: No use diagonales, presione ENTER despues de llenar cada dato" << endl;
+    cin >> day;
+    cin >> month;
+    cin >> year;
+    cout << "Escriba la ubicacion de su publicacion" << endl;
+    cin.ignore();
+    getline(cin, location);
+    p->usuario = this;
+    p->contenido = cont;
+    p->dia = day;
+    p->mes = month;
+    p->anio = year;
+    p->ubi = location;
+    this->ubicaciones.push_back(p);
+    cout << "Su publicacion ha sido agregada correctamente" << endl;
+    cout << "Cargando..." << endl;
+    _sleep(2000);
+    return this->ubicaciones.back();
 }
 
 Usuario* Usuario::getAmigo(int id)

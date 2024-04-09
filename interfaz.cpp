@@ -26,7 +26,8 @@ int main()
     log("2. Ver lista de publicaciones");
     log("3. Entrar a perfil de usuario");
     log("4. Agregar nuevo usuario");
-    log("5. Salir");
+    log("5. Mostrar publicaciones con ubicacion");
+    log("6. Salir");
     cin >> x;
 
     switch (x)
@@ -49,6 +50,9 @@ int main()
             r.CrearUsuario();
             break;
             case 5:
+            r.mostrarUbicaciones();
+            break;
+            case 6:
             return 0; //Cierra programa
             break;
             default:
@@ -88,7 +92,9 @@ void MenuDeUsuario(Usuario* u)
     log("3. Crear publicacion");
     log("4. Entrar a perfil de amigo");
     log("5. Agregar nuevo amigo");
-    log("6. Regresar al menu principal");
+    log("6. Crear publicacion con ubicacion");
+    log("7. Ver publicaciones con ubicacion");
+    log("8. Regresar al menu principal");
     cin >> x;
 
 switch (x)
@@ -124,6 +130,15 @@ switch (x)
             MenuDeUsuario(u);
             break;
             case 6:
+            r.agregarUbicacion(u->crearUbicacion());
+            MenuDeUsuario(u);
+            break;
+            case 7:
+            LimpiarPantalla();
+            u->mostrarUbicaciones();
+            MenuDeUsuario(u);
+            break;
+            case 8:
             main();
             break;
             default:
